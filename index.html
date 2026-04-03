@@ -1,0 +1,736 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio1</title>
+
+        <script src="JS/jquery-1.11.1.js"></script>
+        <script src="JS/scrolltop.js"></script>
+
+    <style>
+        body {background-color: #00594f;
+        }
+
+        *{font-family: Optima Roman}
+
+        .front{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .front-video{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;   
+            z-index: 1;
+        }
+
+        .front-content{
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        .slider{
+            width: 100%;
+            height: 500px;
+            margin: 0px auto;
+            position: relative;
+            overflow: hidden;
+            
+        }
+
+        .slides{
+            display: flex;
+            width: 200%;
+            height: 100%;
+            transition: transform 0.6s ease;
+            position: relative;
+        }
+
+        .panel{
+            width: 50%;
+            height: 100%;
+        }
+
+        .red-panel{
+            background-color: #00594f;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 60px;
+            box-sizing: border-box;
+            color: white;
+        }
+
+        .slider:hover .slides{
+            transform: translateX(-50%);
+        }
+        
+        .imagenAM { 
+            position: absolute; 
+            top: 100px;  
+            left: 50%; 
+            transform: translateX(-50%); 
+            z-index: 10;
+        }
+
+        .car-image {
+            width: 400px;
+        }
+
+
+        .text-panel{
+            position: relative;
+            background: #111;
+            color: white;
+            align-items:center;
+            justify-content:center;
+            padding: 40px;
+            box-sizing: border-box;
+            font-size: 1.5rem;
+            overflow: hidden;
+        }
+
+        .driver-left,
+        .driver-right{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 400px;
+            z-index: 2;
+        }
+
+        .driver-left{
+            left: 10%;
+        }
+
+        .driver-right{
+            right: 10%;
+        }
+
+        .driver-left h2,
+        .driver-right h2{
+            font-size: 50px;
+            margin-bottom: 70px;
+        }
+
+        .driver-left p,
+        .driver-right p{
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+
+
+        .panel-bg{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        .panel-car-slide{
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .panel-title{
+            margin: 0;
+            font-size: 50px;
+            letter-spacing: 2px;
+        }
+
+        .panel-text{
+            margin-top: 20px;
+            max-width: 800px;
+            line-height: 1.6;
+            font-size: 23px;
+        }
+        .panel-text-dog{
+            align-self: flex-end;
+            margin-top: 20px;
+            width: 60%;
+            line-height: 1.6;
+            font-size: 23px;
+        }
+        .panel-title-dog{
+            align-self: flex-end;
+            width: 60%;
+            margin: 0;
+            font-size: 50px;
+            letter-spacing: 2px;
+        }
+
+        .middle-image{
+            position:absolute;
+            top:50%;
+            left:57%;
+            transform: translate(-50%, -50%);
+            width:1200px; /* ajusta tamaño */
+            transition: transform 0.6s ease;
+            z-index:10;
+            pointer-events:none;
+        }
+
+        .driver1-image{
+            position:absolute;
+            top:50%;
+            left:40%;
+            transform: translate(-50%, -50%);
+            width:800px; /* ajusta tamaño */
+            transition: transform 0.6s ease;
+            z-index:10;
+            pointer-events:none;
+        }
+        .driver2-image{
+            position:absolute;
+            top:50%;
+            left:75%;
+            transform: translate(-50%, -50%);
+            width:450px; /* ajusta tamaño */
+            transition: transform 0.6s ease;
+            z-index:10;
+            pointer-events:none;    
+        }
+
+        .trophy{
+            position: absolute;
+            top: 70%;
+            left: 20%;
+            transform: translate(1100%, -273%);
+            width:105px; 
+            z-index:10;
+        }
+        .trophy2{
+            position: absolute;
+            top: 70%;
+            left: 20%;
+            transform: translate(1135%, -273%);
+            width:105px; 
+            z-index:10;
+        }
+
+        .dog-image{
+            position:absolute;
+            top:55%;
+            left:7%;
+            transform: translate(-50%, -50%);
+            width:900px; /* ajusta tamaño */
+            transition: transform 0.6s ease;
+            z-index:10;
+            pointer-events:none;
+        }
+
+        .merch1-image{
+            position:absolute;
+            top:50%;
+            left:57%;
+            transform: translate(-50%, -50%);
+            width:1200px; /* ajusta tamaño */
+            transition: transform 0.6s ease;
+            z-index:10;
+            pointer-events:none;
+        }
+        
+            .shop-section{
+            width:100%;
+             padding-bottom: 100px;
+            background-image: url("fondo final.png");
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+            .shop-section::before{
+        content: "";
+        position: absolute;
+        top: 200px;
+        left: 0;
+        width: 100%;
+        height: 100%x;
+        background: rgb(19, 19, 19); 
+        z-index: 1;
+    }
+
+    .product-grid{
+        position: relative;
+        margin: 0 auto;
+        padding-top: 250px;
+        width: 90%;
+        max-width: 1400px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        z-index: 2;
+    }
+
+    .product-card{
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        text-align: center;
+        color: white;
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+    }
+
+    .product-card:hover{
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .product-card img{
+        width: 150px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+        .product-card button{
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #00bfa6;
+        border: none;
+        border-radius: 25px;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .product-card button:hover{
+        background-color: #009e8a;
+        transform: scale(1.05);
+    }
+
+    .cart-counter{
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 20px;
+        background: rgba(0,0,0,0.6);
+        padding: 10px 25px;
+        border-radius: 30px;
+        z-index: 3;
+    }
+
+    .checkout-btn{
+        display: block;
+        margin: 40px auto 0 auto;
+        padding: 15px 40px;
+        background: #00bfa6;
+        border: none;
+        border-radius: 30px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .checkout-btn:hover{
+        background: #009e8a;
+        transform: scale(1.05);
+    }
+
+    .checkout-panel{
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        background: #111;
+        color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.6s ease, opacity 0.4s ease;
+    }
+
+    .checkout-panel.active{
+        max-height: 500px;
+        opacity: 1;
+        padding: 30px;
+        margin-top: 30px;
+    }
+
+    .quantity-control {
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .quantity-control button {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: none;
+        background-color: #00bfa6;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.2s ease;
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+    }
+
+    .quantity-control button:hover {
+        background-color: #009e8a;
+        transform: scale(1.1);
+    }
+    .quantity-control button:last-child {
+    margin-left: 5px; 
+    }
+    .quantity-control button:hover {
+        background-color: #009e8a;
+        transform: scale(1.1);
+    }
+
+    .quantity-control span {
+        width: 30px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+        /* =========================
+    RESPONSIVE PARA CELULAR
+    ========================= */
+
+    @media screen and (max-width: 768px){
+
+        .front-content{
+            font-size: 1.8rem;
+            padding:20px;
+        }
+
+        .slider{
+            height: auto;
+        }
+
+        .slides{
+            flex-direction: column;
+            width:100%;
+            transform:none !important;
+        }
+
+        .panel{
+            width:100%;
+            height:auto;
+        }
+
+        .red-panel{
+            padding:30px 20px;
+        }
+
+        .panel-title,
+        .panel-title-dog{
+            font-size:28px !important;
+        }
+
+        .panel-text,
+        .panel-text-dog{
+            font-size:16px;
+            width:100%;
+        }
+
+        /* imágenes grandes */
+        .middle-image,
+        .driver1-image,
+        .driver2-image,
+        .dog-image,
+        .merch1-image{
+            position:relative;
+            width:100%;
+            max-width:350px;
+            left:50%;
+            transform:translateX(-50%);
+            margin-top:20px;
+        }
+
+        .car-image{
+            width:100%;
+            max-width:300px;
+        }
+
+        /* drivers texto */
+        .driver-left,
+        .driver-right{
+            position:relative;
+            left:auto;
+            right:auto;
+            transform:none;
+            max-width:100%;
+            margin-bottom:30px;
+            text-align:center;
+        }
+
+        .driver-left h2,
+        .driver-right h2{
+            font-size:28px;
+            margin-bottom:20px;
+        }
+
+        /* trofeos ocultos en celular */
+        .trophy,
+        .trophy2{
+            display:none;
+        }
+
+        /* PRODUCTOS */
+
+        .product-grid{
+            grid-template-columns: 1fr;
+            gap:25px;
+            padding-top:150px;
+        }
+
+        .product-card img{
+            width:120px;
+        }
+
+        .cart-counter{
+            top:5%;
+            font-size:16px;
+        }
+
+        .checkout-btn{
+            width:80%;
+        }
+
+    }
+    </style>
+    
+</head>
+
+<body>
+    <div class="front" id="front">
+        <video class="front-video" autoplay muted loop playsinline>
+            <source src="videosAM.mp4" type="video/mp4">
+        </video>
+    </div>
+
+
+    <div class="slider">
+        <div class="slides">
+            <div class="panel red-panel">
+                <h2 class="panel-title" style="font-size: 50px">AMR26</h2>
+                <p class="panel-text">El Aston Martin AMR26 es el monoplaza de Fórmula 1 que la escudería utiliza en la temporada 2026. Fue diseñado bajo la dirección de Adrian Newey y marca el inicio de la colaboración con Honda, que aporta la nueva unidad de potencia híbrida RA626H. El coche mantiene el característico color verde de Aston Martin con detalles en amarillo y negro, está construido en fibra de carbono para reducir peso y cumplir con las nuevas regulaciones, y será pilotado por Fernando Alonso y Lance Stroll, con el objetivo de consolidar al equipo en la lucha por podios y victorias. </p>
+            </div>
+            <div class="panel text-panel">
+                <img src="Fondo verde.jpg" class="panel-bg">
+                <img src="carslides.png" class="panel-car-slide">
+            </div>
+
+            <img src="1.png" class="middle-image">
+            
+        </div>
+    </div>
+
+
+    <div class="slider">
+        <div class="slides">
+            <div class="panel red-panel">
+                <h2 class="panel-title" style="font-size: 50px">DRIVERS</h2>
+                <p class="panel-text">Los pilotos de Fórmula 1 son seleccionados tras un proceso muy exigente que comienza en el karting y continúa en categorías menores como Fórmula 3 y Fórmula 2. Para competir en la máxima categoría deben obtener la Superlicencia FIA, que requiere acumular puntos con buenos resultados y experiencia. Además del talento y la preparación física, influyen el respaldo de programas de jóvenes pilotos y el apoyo de patrocinadores, lo que convierte el camino hacia la F1 en una combinación de rendimiento, disciplina y oportunidades.</p>
+                <img src="Drivers.png" class="driver1-image">
+            </div>
+            <div class="panel text-panel">
+                <div class="driver-left">
+                    <h2>Fernando Alonso</h2>
+                    <p>Fernando Alonso es un piloto español, dos veces campeón del mundo de Fórmula 1, reconocido por su talento y experiencia. A lo largo de su carrera ha competido en varios equipos y actualmente corre con Aston Martin, donde sigue siendo una figura clave en la parrilla.</p>
+                </div>
+
+                <div class="driver-right">
+                    <h2>Lance Stroll</h2>
+                    <p>Lance Stroll es un piloto canadiense de Fórmula 1 que compite con Aston Martin. Debutó en la categoría en 2017 y desde entonces ha sumado experiencia en distintos equipos, destacando por su juventud y constancia en la parrilla.</p>
+                </div>
+    
+                <img src="Fondo verde.jpg" class="panel-bg">
+            </div>
+
+            <img src="FerStroll.png" class="driver2-image">
+            <img src="trophy.png" class="trophy"> <img src="trophy.png" class="trophy2">
+            
+
+        </div>
+
+    </div>
+
+    <div class="slider">
+        <div class="slides">
+            <div class="panel red-panel">
+                <h2 class="panel-title-dog" style="font-size: 50px">Merch</h2>
+                <p class="panel-text-dog">Aston Martin F1 para la temporada 2026 incluye la nueva colección de ropa réplica diseñada por PUMA, con camisetas, chaquetas, gorras y accesorios en los colores característicos del equipo. También se ofrecen artículos de fanwear, relojes, joyería y productos esenciales para seguidores. Los aficionados pueden adquirir estas prendas en la tienda oficial del equipo, con beneficios como descuentos para miembros y acceso anticipado a lanzamientos exclusivos.</p>
+                <img src="dog.png" class="dog-image">
+            </div>
+            <div class="panel text-panel">
+                <img src="Fondo verde.jpg" class="panel-bg">
+            </div>
+
+            <img src="merch1.png" class="merch1-image">
+        </div>
+    </div>
+
+    <div class="shop-section">
+         <div class="cart-counter">
+                🛒 Productos en carrito: <span id="cartCount">0</span>
+        </div>
+        <div class="product-grid">
+            
+            <div class="product-card">
+                  <img src="producto1.jpg" alt="Producto 1">
+                    <h3>Producto 1</h3>
+                    <div class="quantity-control">
+                        <button onclick="changeQuantity('Producto 1', -1)">-</button>
+                        <span id="qty-Producto1">0</span>
+                        <button onclick="changeQuantity('Producto 1', 1)">+</button>
+                    </div>
+                    <p>$120</p>
+            </div>
+
+            <div class="product-card">
+                  <img src="producto2.jpg" alt="Producto 2">
+                    <h3>Producto 2</h3>
+                    <div class="quantity-control">
+                        <button onclick="changeQuantity('Producto 2', -1)">-</button>
+                        <span id="qty-Producto2">0</span>
+                        <button onclick="changeQuantity('Producto 2', 1)">+</button>
+                    </div>
+                    <p>$95</p>
+            </div>
+
+            <div class="product-card">
+                     <img src="producto3.jpg" alt="Producto 3">
+                    <h3>Producto 3</h3>
+                    <div class="quantity-control">
+                        <button onclick="changeQuantity('Producto 3', -1)">-</button>
+                        <span id="qty-Producto3">0</span>
+                        <button onclick="changeQuantity('Producto 3', 1)">+</button>
+                    </div>
+                    <p>$140</p>
+            </div>
+
+            <div class="product-card">
+                  <img src="producto4.jpg" alt="Producto 4">
+                    <h3>Producto 4</h3>
+                    <div class="quantity-control">
+                        <button onclick="changeQuantity('Producto 4', -1)">-</button>
+                        <span id="qty-Producto4">0</span>
+                        <button onclick="changeQuantity('Producto 4', 1)">+</button>
+                    </div>
+                    <p>$80</p>
+            </div>
+
+            <div class="product-card">
+                  <img src="producto5.jpg" alt="Producto 5">
+                    <h3>Producto 5</h3>
+                    <div class="quantity-control">
+                        <button onclick="changeQuantity('Producto 5', -1)">-</button>
+                        <span id="qty-Producto5">0</span>
+                        <button onclick="changeQuantity('Producto 5', 1)">+</button>
+                    </div>
+                    <p>$60</p>
+            </div>
+
+            <div class="product-card">
+                  <img src="producto6.jpg" alt="Producto 6">
+                    <h3>Producto 6</h3>
+                    <div class="quantity-control">
+                        <button onclick="changeQuantity('Producto 6', -1)">-</button>
+                        <span id="qty-Producto6">0</span>
+                        <button onclick="changeQuantity('Producto 6', 1)">+</button>
+                    </div>
+                    <p>$200</p>
+            </div>
+
+           
+        </div>
+        <button class="checkout-btn" onclick="toggleCheckout()">Pagar todo</button>
+            <div class="checkout-panel" id="checkoutPanel">
+                <h2>Resumen del carrito</h2>
+                <div id="cartItems"></div>
+                <h3 id="totalPrice">Total: $0</h3>
+            </div>
+    </div>
+        <a href="#front">
+        <img src="1.png">
+            </a>
+
+    <script>
+        let cart = {};
+
+        function changeQuantity(name, delta){
+            if(!cart[name]) cart[name] = 0;
+            cart[name] += delta;
+            if(cart[name] < 0) cart[name] = 0;
+
+            document.getElementById(`qty-${name.replace(/\s/g,'')}`).textContent = cart[name];
+
+            updateCartCounter();
+        }
+
+        function updateCartCounter(){
+            let total = 0;
+            for(let key in cart){
+                total += cart[key];
+            }
+            document.getElementById("cartCount").textContent = total;
+        }
+
+        function toggleCheckout(){
+            const panel = document.getElementById("checkoutPanel");
+            const itemsDiv = document.getElementById("cartItems");
+            const totalDiv = document.getElementById("totalPrice");
+
+            itemsDiv.innerHTML = "";
+            let total = 0;
+
+            for(let key in cart){
+                if(cart[key] > 0){
+                    let price = getProductPrice(key);
+                    itemsDiv.innerHTML += `<p>${key} x${cart[key]} - $${price * cart[key]}</p>`;
+                    total += price * cart[key];
+                }
+            }
+
+            totalDiv.textContent = "Total: $" + total;
+            panel.classList.toggle("active");
+        }
+
+        function getProductPrice(name){
+            const prices = {
+                "Producto 1": 120,
+                "Producto 2": 95,
+                "Producto 3": 140,
+                "Producto 4": 80,
+                "Producto 5": 60,
+                "Producto 6": 200
+            };
+            return prices[name] || 0;
+        }
+        </script>
+    
+</body>
+</html>
